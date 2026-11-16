@@ -14,7 +14,7 @@
  * webovou aplikaci (Spustit jako: Já, Přístup: Kdokoli).
  */
 
-const SITE_URL = 'https://lida4py.github.io/svatba/'; // pro osobní odkazy
+const SITE_URL = 'https://lida-a-stepan.github.io/svatba/'; // pro osobní odkazy
 const NOTIFY_EMAIL = true;           // upozornění majiteli tabulky na každou odpověď
 
 const SHEETS = {

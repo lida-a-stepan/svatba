@@ -3,8 +3,8 @@ const TERMIN = "30. dubna 2027";
 
 // Vzorová data pro náhled. Skutečný seznam hostů nikdy necommitujte.
 const UKAZKA = [
-  { name: "Novákovi", max: 3, code: "8ay7vema", link: "https://lida4py.github.io/svatba/?g=8ay7vema" },
-  { name: "Babička Marie", max: 1, code: "k3pz9wqh", link: "https://lida4py.github.io/svatba/?g=k3pz9wqh" },
+  { name: "Novákovi", max: 3, code: "8ay7vema", link: "https://lida-a-stepan.github.io/svatba/?g=8ay7vema" },
+  { name: "Babička Marie", max: 1, code: "k3pz9wqh", link: "https://lida-a-stepan.github.io/svatba/?g=k3pz9wqh" },
 ];
 
 const $ = (id) => document.getElementById(id);
