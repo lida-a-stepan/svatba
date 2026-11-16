@@ -9,6 +9,7 @@ Statická stránka na GitHub Pages a RSVP přes Google Apps Script do Google tab
 | `script.js` | louka v úvodu, kód z pozvánky, RSVP; nahoře je `SCRIPT_URL` |
 | `fonts/` | písma hostovaná přímo na webu (Fraunces, Atkinson Hyperlegible, licence OFL) |
 | `apps-script/Code.gs` | backend, vkládá se do Apps Scriptu |
+| `pozvanka/` | tisková šablona pozvánek A5 s QR kódy (viz níže) |
 
 ## Co je veřejné a co ne
 
@@ -41,3 +42,13 @@ Doporučení k účtům: zapněte 2FA na GitHubu i na svatebním Google účtu. 
 7. Do listu *Hosté* zapište domácnosti a max. počet osob a spusťte `generateInviteLinks`. Doplní se kódy a osobní odkazy pro pozvánky (QR kód).
 
 Po každé změně kódu v Apps Scriptu: **Nasadit → Spravovat nasazení → upravit → Verze: Nová verze**. URL zůstane stejná.
+
+## Pozvánky k tisku
+
+`pozvanka/index.html` vytvoří oboustrannou pozvánku A5 pro každou domácnost, s jejím jménem, počtem osob, QR kódem a kódem k ručnímu zadání.
+
+1. V tabulce spusťte `generateInviteLinks`. Pak list *Hosté* stáhněte přes *Soubor → Stáhnout → CSV*.
+2. Otevřete `pozvanka/index.html` (stačí soubor z disku, nebo `…github.io/svatba/pozvanka/`) a načtěte CSV. Soubor zůstane v prohlížeči, nikam se neodesílá.
+3. **Vytisknout** → A5, oboustranně, okraje žádné, měřítko 100 %. Nebo uložit jako PDF pro tiskárnu.
+
+CSV soubory a PDF jsou v `.gitignore`. Seznam hostů do repa nepatří. Termín RSVP se mění nahoře v `pozvanka.js`, texty v `index.html`. QR kódy generuje knihovna `qrcode.js` (qrcode-generator, MIT) přímo v prohlížeči.

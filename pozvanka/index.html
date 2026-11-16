@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Pozvánky k tisku – Lída a Štěpán</title>
+  <link rel="stylesheet" href="pozvanka.css">
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <div class="toolbar">
+    <p class="toolbar__title">Pozvánky k tisku</p>
+    <p class="toolbar__help">Ukázka se vzorovými daty. Pro skutečné pozvánky stáhněte list <em>Hosté</em> z tabulky (Soubor → Stáhnout → CSV) a načtěte ho tady. Soubor zůstane jen ve vašem prohlížeči, nikam se neodesílá.</p>
+    <div class="toolbar__row">
+      <label class="toolbar__file">Načíst CSV s hosty <input type="file" id="csv" accept=".csv,text/csv"></label>
+      <button type="button" id="print">Vytisknout</button>
+    </div>
+    <p class="toolbar__status" id="status" role="status"></p>
+    <p class="toolbar__help">Tisk: A5, oboustranně (otočit podle kratší strany), okraje „žádné“, měřítko 100 %.</p>
+  </div>
+
+  <div id="sheets"></div>
+
+  <template id="tpl-front">
+    <section class="sheet front">
+      <div class="front__text">
+        <p class="front__intro">Bereme se!</p>
+        <h1 class="front__names"><span>Lída</span><span class="front__amp">&amp;</span><span>Štěpán</span></h1>
+        <p class="front__invite">S radostí vás zveme na naši svatbu. Oslavte ten den s námi.</p>
+        <p class="front__when"><strong>sobota 12. června 2027</strong><br>ve 14:00, Horní Ves</p>
+      </div>
+      <img class="front__meadow" src="louka.svg" alt="">
+    </section>
+  </template>
+
+  <template id="tpl-back">
+    <section class="sheet back">
+      <div class="back__for">
+        <p class="back__label">Pozvánka pro</p>
+        <p class="back__name" data-f="name"></p>
+        <p data-f="persons"></p>
+      </div>
+      <h2 class="back__h">Dejte nám prosím vědět, jestli přijdete, do <span class="accent" data-f="deadline"></span></h2>
+      <div class="back__qr-row">
+        <div class="back__qr" data-f="qr"></div>
+        <p>Naskenujte kód telefonem. Otevře se váš osobní odkaz s adresou, kontakty a formulářem pro potvrzení účasti.</p>
+      </div>
+      <div class="back__manual">
+        <p>Nebo otevřete <strong data-f="site"></strong> a zadejte kód:</p>
+        <p class="back__code accent" data-f="code"></p>
+      </div>
+      <p class="back__note">Kód patří jen vám. Prosíme, nesdílejte ho na sociálních sítích.</p>
+    </section>
+  </template>
+
+  <script src="qrcode.js"></script>
+  <script src="pozvanka.js"></script>
+</body>
+</html>

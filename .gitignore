@@ -1,0 +1,4 @@
+# Skutečný seznam hostů a vyexportovaná data nikdy necommitovat
+pozvanka/*.csv
+!pozvanka/hoste.example.csv
+*.pdf

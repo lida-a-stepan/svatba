@@ -1,0 +1,159 @@
+/* Pozvánka A5 (148 × 210 mm). Barvy a písma stejné jako web. */
+@font-face {
+  font-family: 'Fraunces Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url(../fonts/fraunces-latin-ext-full-normal.woff2) format('woff2');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Fraunces Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url(../fonts/fraunces-latin-full-normal.woff2) format('woff2');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: 'Fraunces Variable';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url(../fonts/fraunces-latin-ext-full-italic.woff2) format('woff2');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Fraunces Variable';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url(../fonts/fraunces-latin-full-italic.woff2) format('woff2');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(../fonts/atkinson-hyperlegible-latin-ext-400-normal.woff2) format('woff2');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(../fonts/atkinson-hyperlegible-latin-400-normal.woff2) format('woff2');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(../fonts/atkinson-hyperlegible-latin-ext-700-normal.woff2) format('woff2');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(../fonts/atkinson-hyperlegible-latin-700-normal.woff2) format('woff2');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+:root {
+  --sky: #E6EDF1; --paper: #FBFCFA; --ink: #26304A; --ink-soft: #4D5670;
+  --poppy: #C73A2E; --wheat: #D9B45A;
+  --display: "Fraunces Variable", Georgia, serif;
+  --body: "Atkinson Hyperlegible", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: #C9D2DA; color: var(--ink); font-family: var(--body); }
+p { margin: 0; }
+.accent { color: var(--poppy); }
+
+/* ---------- Ovládání (jen na obrazovce) ---------- */
+.toolbar {
+  max-width: 46rem; margin: 2rem auto; padding: 1.5rem 1.75rem;
+  background: var(--paper); border-radius: 16px; line-height: 1.5;
+  display: flex; flex-direction: column; gap: 0.75rem;
+}
+.toolbar__title { font-family: var(--display); font-size: 1.75rem; font-weight: 600; }
+.toolbar__help { color: var(--ink-soft); }
+.toolbar__row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+.toolbar__file, .toolbar button {
+  font: 700 1rem/1 var(--body); padding: 0.8rem 1.25rem; border-radius: 999px; cursor: pointer;
+}
+.toolbar__file { border: 2px solid var(--ink); }
+.toolbar__file input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.toolbar__file:focus-within { outline: 3px solid #4A68B0; outline-offset: 2px; }
+.toolbar button { border: 0; background: var(--poppy); color: var(--paper); }
+.toolbar__status { font-weight: 700; }
+
+#sheets {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; padding: 0 1rem 3rem;
+}
+
+/* ---------- List A5 ---------- */
+.sheet {
+  width: 148mm; height: 210mm; position: relative; overflow: hidden;
+  box-shadow: 0 2px 12px rgba(38, 48, 74, 0.25);
+}
+
+/* Přední strana */
+.front { background: var(--sky); }
+.front__text { position: relative; z-index: 1; padding: 56px 56px 0; }
+.front__intro {
+  font-family: var(--display); font-style: italic; font-size: 28px; margin-bottom: 14px;
+  font-variation-settings: "SOFT" 100, "WONK" 1; color: var(--poppy);
+}
+.front__names {
+  margin: 0 0 28px; font-family: var(--display); font-weight: 700; font-size: 96px;
+  line-height: 1; letter-spacing: -0.03em;
+  font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 144;
+}
+.front__names span { display: block; }
+.front__amp { font-weight: 400; font-style: italic; font-size: 56px; line-height: 0.8; margin: 6px 0 12px; }
+.front__invite { font-size: 19px; line-height: 1.5; max-width: 380px; margin-bottom: 24px; }
+.front__when { font-size: 22px; line-height: 1.4; }
+.front__meadow {
+  position: absolute; left: 0; bottom: 0; width: 100%; height: 190px;
+  object-fit: cover; object-position: center bottom;
+}
+
+/* Zadní strana */
+.back {
+  background: var(--paper); padding: 64px 56px 56px;
+  display: flex; flex-direction: column;
+}
+.back__for {
+  display: flex; flex-direction: column; gap: 4px;
+  padding-bottom: 28px; border-bottom: 2px solid var(--wheat); font-size: 18px;
+}
+.back__label { font-size: 17px; color: var(--ink-soft); }
+.back__name {
+  font-family: var(--display); font-weight: 700; font-size: 40px; line-height: 1.1;
+  font-variation-settings: "SOFT" 100, "WONK" 1;
+}
+.back__h {
+  margin: 36px 0 28px; font-family: var(--display); font-weight: 600; font-size: 34px;
+  line-height: 1.15; font-variation-settings: "SOFT" 100; text-wrap: balance;
+}
+.back__qr-row { display: flex; gap: 28px; align-items: center; font-size: 18px; line-height: 1.5; }
+.back__qr { width: 168px; height: 168px; flex-shrink: 0; }
+.back__qr svg { display: block; width: 100%; height: 100%; }
+.back__manual { margin-top: 32px; display: flex; flex-direction: column; gap: 6px; font-size: 18px; line-height: 1.5; }
+.back__code { font-weight: 700; font-size: 36px; letter-spacing: 0.12em; }
+.back__note { margin-top: auto; font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
+
+/* ---------- Tisk ---------- */
+@page { size: A5 portrait; margin: 0; }
+@media print {
+  body { background: none; }
+  .toolbar { display: none; }
+  #sheets { display: block; padding: 0; }
+  .sheet { box-shadow: none; break-after: page; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}
