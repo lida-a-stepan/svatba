@@ -1,6 +1,6 @@
 // URL webové aplikace z Apps Scriptu (končí na /exec). Není to tajemství,
 // bez platného kódu z pozvánky nic nevrátí a nic neuloží.
-const SCRIPT_URL = "";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzA7T75KNmNaqZBCXA3xHdcLkdRO2GeHysjBO7-KzIw9xIc31dCKmMDJjpRAyLIUIaN2A/exec";
 
 const STORAGE_KEY = "svatba-kod";
 const CODE_RE = /^[abcdefghjkmnpqrstuvwxyz23456789]{8}$/;
