@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src https://script.google.com https://script.googleusercontent.com; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Lída a Štěpán se berou – 12. června 2027</title>
+  <meta name="description" content="Informace pro svatební hosty a potvrzení účasti.">
+  <link rel="preload" href="fonts/fraunces-latin-full-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='12' fill='%23C73A2E'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%2326304A'/%3E%3C/svg%3E">
+</head>
+<body>
+  <a class="skip" href="#rsvp">Přejít na potvrzení účasti</a>
+
+  <header class="hero">
+    <div class="hero__text">
+      <p class="hero__intro">Bereme se!</p>
+      <h1 class="hero__names">
+        <span>Lída</span>
+        <span class="hero__amp">&amp;</span>
+        <span>Štěpán</span>
+      </h1>
+      <p class="hero__when">
+        <time datetime="2027-06-12">sobota 12. června 2027</time><br>
+        Horní Ves
+      </p>
+      <p class="hero__greeting" id="greeting" hidden></p>
+      <a class="button" href="#rsvp">Potvrdit účast</a>
+    </div>
+    <svg class="meadow" id="meadow" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMax slice"></svg>
+  </header>
+
+  <main>
+    <section id="kde" aria-labelledby="kde-h">
+      <h2 id="kde-h">Kdy a kde</h2>
+      <div class="places">
+        <article class="place">
+          <h3>Obřad</h3>
+          <p class="place__time">14:00</p>
+          <p data-private="adresa_obrad" class="private">Přesnou adresu uvidíte po otevření odkazu z pozvánky.</p>
+        </article>
+        <article class="place">
+          <h3>Hostina a večerní zábava</h3>
+          <p class="place__time">od 15:30</p>
+          <p data-private="adresa_hostina" class="private">Přesnou adresu uvidíte po otevření odkazu z pozvánky.</p>
+          <p>Za deštivého počasí bude obřad pod střechou na stejném místě.</p>
+        </article>
+      </div>
+      <p><a id="map-link" hidden>Otevřít v mapě</a></p>
+    </section>
+
+    <section id="program" aria-labelledby="program-h">
+      <h2 id="program-h">Program dne</h2>
+      <ol class="timeline">
+        <li><time>13:30</time><span>Příjezd hostů, drobné občerstvení</span></li>
+        <li><time>14:00</time><span>Svatební obřad</span></li>
+        <li><time>14:45</time><span>Gratulace a společné focení</span></li>
+        <li><time>15:30</time><span>Slavnostní oběd</span></li>
+        <li><time>17:00</time><span>Krájení dortu</span></li>
+        <li><time>19:00</time><span>První tanec, pak zábava s kapelou</span></li>
+        <li><time>22:00</time><span>Půlnoční raut (o něco dřív, ať vydržíte)</span></li>
+      </ol>
+    </section>
+
+    <section id="info" aria-labelledby="info-h">
+      <h2 id="info-h">Praktické informace</h2>
+      <dl class="info">
+        <div>
+          <dt>Doprava a parkování</dt>
+          <dd>Parkovat se dá přímo na místě. Večer pojede svoz na nejbližší vlak.</dd>
+        </div>
+        <div>
+          <dt>Ubytování</dt>
+          <dd>Na místě je možné přespat. Jestli chcete, zaškrtněte to ve formuláři níže.</dd>
+        </div>
+        <div>
+          <dt>Oblečení</dt>
+          <dd>Letní, slavnostní, ale pohodlné. Obřad je na trávě, tak se hodí boty bez jehlových podpatků.</dd>
+        </div>
+        <div>
+          <dt>Dary</dt>
+          <dd data-private="dary" class="private">Největší dar je, že přijedete.</dd>
+        </div>
+        <div>
+          <dt>Děti</dt>
+          <dd>Děti jsou vítané. Odpoledne pro ně bude koutek s hlídáním.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section id="rsvp" class="rsvp" aria-labelledby="rsvp-h">
+      <h2 id="rsvp-h">Potvrzení účasti</h2>
+      <p class="rsvp__lead">Dejte nám prosím vědět do <strong>30. dubna 2027</strong>. Odpověď můžete později změnit, stačí formulář vyplnit znovu.</p>
+
+      <form id="code-form" class="code-form" novalidate>
+        <div class="field">
+          <label for="code">Kód z pozvánky</label>
+          <p class="hint" id="code-hint">Najdete ho na pozvánce pod QR kódem. Pokud jste otevřeli odkaz z pozvánky, vyplní se sám.</p>
+          <div class="code-row">
+            <input id="code" name="code" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" inputmode="text" maxlength="12" aria-describedby="code-hint">
+            <button class="button" type="submit" id="code-submit">Pokračovat</button>
+          </div>
+        </div>
+        <p class="form-error" id="code-error" role="alert" hidden></p>
+      </form>
+
+      <form id="rsvp-form" novalidate hidden>
+        <input type="hidden" name="token" id="token">
+        <div class="hp" aria-hidden="true">
+          <label>Nevyplňujte <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        </div>
+
+        <div class="field">
+          <label for="name">Kdo formulář vyplňuje</label>
+          <p class="hint" id="name-hint">Za celou domácnost stačí jedna odpověď.</p>
+          <input id="name" name="name" type="text" autocomplete="name" maxlength="200" required aria-describedby="name-hint">
+        </div>
+
+        <div class="field">
+          <label for="email">E-mail</label>
+          <p class="hint" id="email-hint">Nepovinné. Pošleme vám případné změny v programu.</p>
+          <input id="email" name="email" type="email" autocomplete="email" maxlength="200" aria-describedby="email-hint">
+        </div>
+
+        <fieldset class="field choice">
+          <legend>Přijdete?</legend>
+          <label class="choice__opt"><input type="radio" name="attending" value="ano" required> Ano, přijdeme</label>
+          <label class="choice__opt"><input type="radio" name="attending" value="ne"> Bohužel nemůžeme</label>
+        </fieldset>
+
+        <div class="if-attending" id="attending-fields" hidden>
+          <div class="field-row">
+            <div class="field">
+              <label for="guests">Počet osob celkem</label>
+              <input id="guests" name="guests" type="number" min="1" max="10" value="1" inputmode="numeric">
+            </div>
+            <div class="field">
+              <label for="kids">Z toho dětí</label>
+              <input id="kids" name="kids" type="number" min="0" max="10" value="0" inputmode="numeric">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="diet">Strava a alergie</label>
+            <p class="hint" id="diet-hint">Vegetariáni, bezlepková strava, alergie…</p>
+            <input id="diet" name="diet" type="text" maxlength="500" aria-describedby="diet-hint">
+          </div>
+
+          <fieldset class="field choice">
+            <legend>Chcete přespat na místě?</legend>
+            <label class="choice__opt"><input type="radio" name="lodging" value="ano"> Ano</label>
+            <label class="choice__opt"><input type="radio" name="lodging" value="ne" checked> Ne</label>
+          </fieldset>
+        </div>
+
+        <div class="field">
+          <label for="note">Vzkaz pro nás</label>
+          <textarea id="note" name="note" rows="3" maxlength="2000"></textarea>
+        </div>
+
+        <p class="form-error" id="form-error" role="alert" hidden></p>
+        <button class="button" type="submit" id="submit">Odeslat odpověď</button>
+      </form>
+
+      <div class="thanks" id="thanks" tabindex="-1" hidden>
+        <h3>Odpověď odeslána</h3>
+        <p id="thanks-text">Děkujeme!</p>
+        <button class="linklike" type="button" id="again">Změnit odpověď</button>
+      </div>
+    </section>
+
+    <section id="kontakt" aria-labelledby="kontakt-h">
+      <h2 id="kontakt-h">Kontakt</h2>
+      <p data-private="kontakty" class="private">Telefonní čísla najdete po otevření odkazu z pozvánky.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Těšíme se na vás. Lída a Štěpán</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
