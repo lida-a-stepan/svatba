@@ -43,6 +43,16 @@ const CODE_LENGTH = 8;
 
 /* ====================== ruční funkce ====================== */
 
+/** Přidá do tabulky menu „Svatba“, ať se funkce nemusí spouštět z editoru skriptu. */
+function onOpen() {
+  SpreadsheetApp.getUi()
+    .createMenu('Svatba')
+    .addItem('Vygenerovat odkazy pro hosty', 'generateInviteLinks')
+    .addSeparator()
+    .addItem('Obnovit listy a záhlaví', 'setup')
+    .addToUi();
+}
+
 /** Spusťte jednou: vytvoří listy se záhlavím a klíči pro soukromé údaje. */
 function setup() {
   const ss = SpreadsheetApp.getActive();
@@ -62,10 +72,14 @@ function setup() {
 function generateInviteLinks() {
   const sh = sheet_('guests');
   const last = sh.getLastRow();
-  if (last < 2) return;
+  if (last < 2) {
+    SpreadsheetApp.getActive().toast('V listu Hosté zatím nejsou žádní hosté.', 'Svatba');
+    return;
+  }
   const range = sh.getRange(2, 1, last - 1, 4);
   const rows = range.getValues();
   const used = new Set(rows.map(r => normCode_(r[0])).filter(Boolean));
+  let created = 0;
   rows.forEach(r => {
     if (!String(r[1]).trim()) return;
     if (!normCode_(r[0])) {
@@ -73,10 +87,12 @@ function generateInviteLinks() {
       do { code = randomCode_(); } while (used.has(code));
       used.add(code);
       r[0] = code;
+      created++;
     }
     r[3] = SITE_URL + '?g=' + normCode_(r[0]);
   });
   range.setValues(rows);
+  SpreadsheetApp.getActive().toast('Nové kódy: ' + created + '. Odkazy jsou ve sloupci Osobní odkaz.', 'Svatba');
 }
 
 /* ====================== webová aplikace ====================== */
