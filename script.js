@@ -161,19 +161,28 @@ async function unlock(code, { silent = false } = {}) {
     const v = details[node.dataset.private];
     if (v) { fillText(node, v); node.classList.add("unlocked"); }
   });
-  if (details.mapa_url && /^https:\/\//.test(details.mapa_url)) {
-    const link = $("map-link");
-    link.href = details.mapa_url;
+  [["mapa_mapy", "map-mapy"], ["mapa_google", "map-google"]].forEach(([key, id]) => {
+    const url = details[key];
+    if (!url || !/^https:\/\//.test(url)) return;
+    const link = $(id);
+    link.href = url;
     link.rel = "noopener noreferrer";
+    link.target = "_blank";
     link.hidden = false;
-  }
+    $("map-links").hidden = false;
+  });
+
+  // Pokoj na statku nabízíme jen domácnostem označeným v tabulce.
+  $("stay-room").hidden = !data.room;
 
   // Pozdrav a limit osob
   let text = `Ahoj, ${data.name}!`;
   if (data.max) {
     guestsInput.max = data.max;
     $("kids").max = data.max;
+    $("ridePersons").max = data.max;
     guestsInput.value = data.max;
+    $("ridePersons").value = data.max;
     text += ` Pozvánka platí pro ${personsWord(data.max)}.`;
   }
   $("greeting").textContent = text;
@@ -214,6 +223,11 @@ const thanks = $("thanks");
 
 form.addEventListener("change", (e) => {
   if (e.target.name === "attending") $("attending-fields").hidden = e.target.value !== "ano";
+  if (e.target.name === "stay") {
+    $("ride-fields").hidden = e.target.value !== "domu_odvoz";
+    $("camp-fields").hidden = e.target.value !== "stan";
+  }
+  if (e.target.name === "guests") $("ridePersons").max = e.target.value;
 });
 
 function showError(msg) {
@@ -225,7 +239,7 @@ const SERVER_ERRORS = {
   unknown_code: "Kód z pozvánky už neplatí. Načtěte prosím stránku znovu z odkazu na pozvánce.",
   rate_limited: "Odpovědí bylo v poslední hodině příliš mnoho. Zkuste to prosím později.",
   busy: "Server je právě vytížený. Zkuste to prosím za chvíli.",
-  missing_fields: "Doplňte prosím jméno a jestli přijdete.",
+  missing_fields: "Doplňte prosím jméno, jestli přijdete a kde budete spát nebo jak pojedete domů.",
 };
 
 form.addEventListener("submit", async (e) => {
@@ -253,8 +267,14 @@ form.addEventListener("submit", async (e) => {
       problems.push("počet dětí (nejvýš tolik, kolik je osob celkem)");
       $("kids").closest(".field").classList.add("invalid");
     }
+    if (!data.stay) {
+      problems.push("kde budete spát nebo jak pojedete domů");
+      $("stay-field").classList.add("invalid");
+    }
+    if (data.stay !== "domu_odvoz") { delete data.rideTo; delete data.ridePersons; }
+    if (data.stay !== "stan") delete data.camp;
   } else {
-    delete data.guests; delete data.kids; delete data.diet; delete data.lodging;
+    ["guests", "kids", "diet", "stay", "rideTo", "ridePersons", "camp", "car"].forEach((k) => delete data[k]);
   }
 
   if (problems.length) {

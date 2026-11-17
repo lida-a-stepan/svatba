@@ -451,3 +451,22 @@ fieldset { border: 0; padding: 0; min-width: 0; }
   letter-spacing: 0.08em;
   text-transform: lowercase;
 }
+
+/* ---------- Místo, program, ubytování ---------- */
+
+.place { max-width: var(--measure); }
+.map-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; font-weight: 700; }
+.lead { color: var(--ink-soft); margin-bottom: 1.5rem; }
+
+.options { margin: 0.25rem 0 0.75rem; padding-left: 1.2rem; }
+.options li { margin-bottom: 0.4rem; }
+.options strong { color: var(--ink); }
+
+.choice--stack { flex-direction: column; align-items: flex-start; }
+.choice--stack .choice__opt { border-radius: 14px; }
+
+.sub-fields { margin-top: -0.5rem; padding-left: 1rem; border-left: 2px dotted var(--wheat); }
+.choice .hint { width: 100%; margin-top: -0.4rem; }
+
+/* Musí být poslední: atribut hidden vždy vyhrává nad display z tříd výše. */
+[hidden], .choice__opt[hidden] { display: none !important; }

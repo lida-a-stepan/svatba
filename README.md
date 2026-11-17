@@ -16,7 +16,7 @@ Statická stránka na GitHub Pages a RSVP přes Google Apps Script do Google tab
 Repo i stránka jsou veřejné, takže **do repa nepatří nic citlivého**. Je to tak navržené:
 
 - **Veřejně:** jména, datum, obec, program, obecné informace.
-- **Jen s kódem z pozvánky:** přesné adresy, odkaz na mapu, telefony, informace k darům. Jsou v listu *Pro hosty* v Google tabulce a web je načte až po zadání platného kódu.
+- **Jen s kódem z pozvánky:** adresa statku, odkazy na Mapy.com a Google Maps, telefony, informace k darům (list *Pro hosty*: `adresa`, `mapa_mapy`, `mapa_google`, `kontakty`, `dary`). Web je načte až po zadání platného kódu.
 - **Nikdy v repu:** seznam hostů, odpovědi, čísla účtů. Pozor, co jednou commitnete, zůstane v historii gitu.
 
 ## Bezpečnostní opatření
@@ -39,7 +39,8 @@ Doporučení k účtům: zapněte 2FA na GitHubu i na svatebním Google účtu. 
 4. **Nasadit → Nové nasazení → Webová aplikace**, *Spustit jako: Já*, *Přístup: Kdokoli*. Zkopírujte URL končící na `/exec`.
 5. URL vložte do `SCRIPT_URL` v `script.js`, commit a push.
 6. Vyplňte list *Pro hosty* (adresy, mapa, kontakty, dary).
-7. Do listu *Hosté* zapište domácnosti a max. počet osob a spusťte `generateInviteLinks`. Doplní se kódy a osobní odkazy pro pozvánky (QR kód).
+7. Do listu *Hosté* zapište domácnosti a max. počet osob a v tabulce zvolte **Svatba → Vygenerovat odkazy pro hosty**. Doplní se kódy a osobní odkazy pro pozvánky (QR kód).
+8. Domácnostem, kterým nabízíte pokoj přímo na statku, napište do sloupce *Pokoj na statku (ano)* „ano“. Jen jim se ve formuláři tato možnost ukáže, a server ji ostatním nepřijme.
 
 Po každé změně kódu v Apps Scriptu: **Nasadit → Spravovat nasazení → upravit → Verze: Nová verze**. URL zůstane stejná.
 

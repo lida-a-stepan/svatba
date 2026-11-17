@@ -18,19 +18,31 @@ const SITE_URL = 'https://lida-a-stepan.github.io/svatba/'; // pro osobní odkaz
 const NOTIFY_EMAIL = true;           // upozornění majiteli tabulky na každou odpověď
 
 const SHEETS = {
-  rsvp:    { name: 'Odpovědi',  headers: ['Čas', 'Kód', 'Domácnost', 'Vyplnil(a)', 'E-mail', 'Přijde', 'Osob', 'Dětí', 'Strava', 'Přespání', 'Vzkaz'] },
-  guests:  { name: 'Hosté',     headers: ['Kód', 'Jméno / domácnost', 'Max. osob', 'Osobní odkaz', 'Poslední odpověď'] },
+  rsvp:    { name: 'Odpovědi',  headers: ['Čas', 'Kód', 'Domácnost', 'Vyplnil(a)', 'E-mail', 'Přijde', 'Osob', 'Dětí', 'Strava',
+                                         'Noc / cesta domů', 'Stan / karavan', 'Odvoz: kam', 'Odvoz: osob', 'Autem', 'Vzkaz'] },
+  guests:  { name: 'Hosté',     headers: ['Kód', 'Jméno / domácnost', 'Max. osob', 'Osobní odkaz', 'Poslední odpověď', 'Pokoj na statku (ano)'] },
   details: { name: 'Pro hosty', headers: ['Klíč', 'Hodnota', 'Poznámka'] },
 };
 
 // Údaje, které web ukáže jen hostům s platným kódem. Hodnoty se vyplňují v listu „Pro hosty“.
 const DETAIL_KEYS = [
-  ['adresa_obrad',   'Přesná adresa obřadu (víc řádků povoleno)'],
-  ['adresa_hostina', 'Přesná adresa hostiny'],
-  ['mapa_url',       'Odkaz na mapu, musí začínat https://'],
-  ['dary',           'Informace k darům, případně číslo účtu'],
-  ['kontakty',       'Kontakty, každý na vlastním řádku, např. „Lída: 600 000 001“'],
+  ['adresa',      'Název místa a adresa (víc řádků povoleno)'],
+  ['mapa_mapy',   'Odkaz na Mapy.com, musí začínat https://'],
+  ['mapa_google', 'Odkaz na Google Maps, musí začínat https://'],
+  ['dary',        'Informace k darům, případně číslo účtu'],
+  ['kontakty',    'Kontakty, každý na vlastním řádku, např. „Lída: 600 000 001“'],
 ];
+const URL_KEYS = ['mapa_mapy', 'mapa_google'];
+
+// Možnosti „Noc / cesta domů“ ve formuláři → text do tabulky.
+const STAY_OPTIONS = {
+  domu_sami:   'domů po vlastní ose',
+  domu_odvoz:  'domů – chtějí odvoz',
+  stan:        'vlastní stan / karavan na místě',
+  penzion:     'penzion (přidělíme)',
+  pokoj:       'pokoj na statku',
+};
+const CAMP_OPTIONS = { stan: 'stan', karavan: 'karavan / obytné auto' };
 
 const LIMITS = {
   perCodePerHour: 10,   // kolikrát může jedna domácnost odeslat formulář za hodinu
@@ -59,6 +71,12 @@ function setup() {
   Object.values(SHEETS).forEach(s => ensureSheet_(ss, s.name, s.headers));
 
   const det = ss.getSheetByName(SHEETS.details.name);
+  // Smazat prázdné řádky se starými klíči, které už web nepoužívá.
+  const allowed = new Set(DETAIL_KEYS.map(k => k[0]));
+  for (let r = det.getLastRow(); r >= 2; r--) {
+    const [k, v] = det.getRange(r, 1, 1, 2).getValues()[0];
+    if (!allowed.has(String(k).trim()) && !String(v).trim()) det.deleteRow(r);
+  }
   const existing = new Set(det.getRange(1, 1, Math.max(det.getLastRow(), 1), 1).getValues().flat());
   DETAIL_KEYS.filter(([k]) => !existing.has(k)).forEach(([k, note]) => det.appendRow([k, '', note]));
 
@@ -102,7 +120,7 @@ function doGet(e) {
   const code = normCode_(e && e.parameter && e.parameter.g);
   const guest = code && findGuest_(code);
   if (!guest) return json_({ ok: false, error: 'unknown_code' });
-  return json_({ ok: true, name: guest.name, max: guest.max, details: readDetails_() });
+  return json_({ ok: true, name: guest.name, max: guest.max, room: guest.room, details: readDetails_() });
 }
 
 /** POST (Content-Type text/plain, JSON tělo) → zapíše odpověď. */
@@ -128,17 +146,29 @@ function doPost(e) {
     if (!name || !attending) return json_({ ok: false, error: 'missing_fields' });
 
     const maxGuests = guest.max || 10;
-    let guests = '', kids = '';
+    let guests = '', kids = '', diet = '', stay = '', camp = '', rideTo = '', ridePersons = '', car = '';
     if (attending === 'ano') {
       guests = clampInt_(d.guests, 1, maxGuests, 1);
       kids = clampInt_(d.kids, 0, guests, 0);
+      diet = clean_(d.diet, 500);
+      // Pokoj na statku smí zvolit jen domácnost, které ho v listu Hosté nabídneme.
+      const stayKey = (d.stay === 'pokoj' && !guest.room) ? '' : d.stay;
+      if (!Object.prototype.hasOwnProperty.call(STAY_OPTIONS, stayKey)) {
+        return json_({ ok: false, error: 'missing_fields' });
+      }
+      stay = STAY_OPTIONS[stayKey];
+      if (stayKey === 'stan') camp = CAMP_OPTIONS[d.camp] || '';
+      if (stayKey === 'domu_odvoz') {
+        rideTo = clean_(d.rideTo, 100);
+        ridePersons = clampInt_(d.ridePersons, 1, guests, guests);
+      }
+      car = d.car === 'ano' ? 'ano' : d.car === 'ne' ? 'ne' : '';
     }
 
     const now = new Date();
     const row = [
-      now, code, safe_(guest.name), name, clean_(d.email, 200), attending, guests, kids,
-      attending === 'ano' ? clean_(d.diet, 500) : '',
-      attending === 'ano' ? (d.lodging === 'ano' ? 'ano' : 'ne') : '',
+      now, code, safe_(guest.name), name, clean_(d.email, 200), attending, guests, kids, diet,
+      stay, camp, rideTo, ridePersons, car,
       clean_(d.note, 2000),
     ];
     sheet_('rsvp').appendRow(row);
@@ -165,10 +195,15 @@ function sheet_(key) {
 function findGuest_(code) {
   const sh = sheet_('guests');
   if (!sh || sh.getLastRow() < 2) return null;
-  const rows = sh.getRange(2, 1, sh.getLastRow() - 1, 3).getValues();
+  const rows = sh.getRange(2, 1, sh.getLastRow() - 1, 6).getValues();
   const i = rows.findIndex(r => normCode_(r[0]) === code);
   if (i < 0) return null;
-  return { row: i + 2, name: String(rows[i][1]).trim(), max: Number(rows[i][2]) || null };
+  return {
+    row: i + 2,
+    name: String(rows[i][1]).trim(),
+    max: Number(rows[i][2]) || null,
+    room: /^(ano|a|x|1|true)$/i.test(String(rows[i][5]).trim()),
+  };
 }
 
 function readDetails_() {
@@ -180,7 +215,7 @@ function readDetails_() {
     k = String(k).trim();
     v = String(v).trim();
     if (!allowed.has(k) || !v) return;
-    if (k === 'mapa_url' && !/^https:\/\//.test(v)) return;
+    if (URL_KEYS.includes(k) && !/^https:\/\//.test(v)) return;
     out[k] = v;
   });
   return out;

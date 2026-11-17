@@ -25,7 +25,7 @@
       </h1>
       <p class="hero__when">
         <time datetime="2027-06-12">sobota 12. června 2027</time><br>
-        Horní Ves
+        Malšice u Tábora
       </p>
       <p class="hero__greeting" id="greeting" hidden></p>
       <a class="button" href="#rsvp">Potvrdit účast</a>
@@ -36,57 +36,59 @@
   <main>
     <section id="kde" aria-labelledby="kde-h">
       <h2 id="kde-h">Kdy a kde</h2>
-      <div class="places">
-        <article class="place">
-          <h3>Obřad</h3>
-          <p class="place__time">14:00</p>
-          <p data-private="adresa_obrad" class="private">Přesnou adresu uvidíte po otevření odkazu z pozvánky.</p>
-        </article>
-        <article class="place">
-          <h3>Hostina a večerní zábava</h3>
-          <p class="place__time">od 15:30</p>
-          <p data-private="adresa_hostina" class="private">Přesnou adresu uvidíte po otevření odkazu z pozvánky.</p>
-          <p>Za deštivého počasí bude obřad pod střechou na stejném místě.</p>
-        </article>
+      <div class="place">
+        <p class="place__time">sobota 12. června 2027, 14:00</p>
+        <p>Obřad i celá oslava budou na jednom místě, na statku v Malšicích u Tábora.</p>
+        <p data-private="adresa" class="private">Přesnou adresu a mapu uvidíte po otevření odkazu z pozvánky.</p>
+        <p class="map-links" id="map-links" hidden>
+          <a id="map-mapy" hidden>Mapy.com</a>
+          <a id="map-google" hidden>Google Maps</a>
+        </p>
       </div>
-      <p><a id="map-link" hidden>Otevřít v mapě</a></p>
     </section>
 
     <section id="program" aria-labelledby="program-h">
       <h2 id="program-h">Program dne</h2>
+      <p class="lead">Časy jsou orientační, ještě je doladíme.</p>
       <ol class="timeline">
         <li><time>13:30</time><span>Příjezd hostů, drobné občerstvení</span></li>
         <li><time>14:00</time><span>Svatební obřad</span></li>
-        <li><time>14:45</time><span>Gratulace a společné focení</span></li>
-        <li><time>15:30</time><span>Slavnostní oběd</span></li>
-        <li><time>17:00</time><span>Krájení dortu</span></li>
-        <li><time>19:00</time><span>První tanec, pak zábava s kapelou</span></li>
-        <li><time>22:00</time><span>Půlnoční raut (o něco dřív, ať vydržíte)</span></li>
+        <li><time>14:30</time><span>Gratulace</span></li>
+        <li><time>15:00</time><span>Focení, mezitím volná zábava a občerstvení</span></li>
+        <li><time>17:00</time><span>Přípitek</span></li>
+        <li><time>17:15</time><span>Večeře formou rautu</span></li>
+        <li><time>18:45</time><span>Krájení dortu</span></li>
+        <li><time>19:15</time><span>Házení kytice</span></li>
+        <li><time>19:45</time><span>První tanec</span></li>
+        <li><time>20:00</time><span>Hraje kapela, potom DJ</span></li>
       </ol>
     </section>
 
     <section id="info" aria-labelledby="info-h">
-      <h2 id="info-h">Praktické informace</h2>
+      <h2 id="info-h">Doprava a ubytování</h2>
       <dl class="info">
         <div>
-          <dt>Doprava a parkování</dt>
-          <dd>Parkovat se dá přímo na místě. Večer pojede svoz na nejbližší vlak.</dd>
+          <dt>Jedete večer domů?</dt>
+          <dd>Pokud bydlíte v okolí, večer vás rádi odvezeme domů. Ve formuláři nám jen dejte vědět, jestli pojedete po vlastní ose, nebo chcete odvoz.</dd>
         </div>
         <div>
-          <dt>Ubytování</dt>
-          <dd>Na místě je možné přespat. Jestli chcete, zaškrtněte to ve formuláři níže.</dd>
+          <dt>Přespání</dt>
+          <dd>
+            <ul class="options">
+              <li><strong>Penzion v okolí.</strong> Máme zajištěné dva penziony kousek od statku. Rozdělíme vás sami a každému dáme vědět, kde bude spát.</li>
+              <li><strong>Vlastní stan nebo karavan</strong> přímo na místě.</li>
+              <li><strong>Pokoj na statku.</strong> Je jich jen pár a jsou pro rodiny s malými dětmi, se kterými jsme se už domluvili.</li>
+            </ul>
+            Ve formuláři nám stačí napsat, co chcete.
+          </dd>
         </div>
         <div>
-          <dt>Oblečení</dt>
-          <dd>Letní, slavnostní, ale pohodlné. Obřad je na trávě, tak se hodí boty bez jehlových podpatků.</dd>
+          <dt>Parkování</dt>
+          <dd>Parkování na statku je omezené. Pokud budete spát v penzionu, nechte prosím auto tam. Na statek se dá dojít pěšky, nebo vás svezeme.</dd>
         </div>
         <div>
           <dt>Dary</dt>
           <dd data-private="dary" class="private">Největší dar je, že přijedete.</dd>
-        </div>
-        <div>
-          <dt>Děti</dt>
-          <dd>Děti jsou vítané. Odpoledne pro ně bude koutek s hlídáním.</dd>
         </div>
       </dl>
     </section>
@@ -149,10 +151,39 @@
             <input id="diet" name="diet" type="text" maxlength="500" aria-describedby="diet-hint">
           </div>
 
+          <fieldset class="field choice choice--stack" id="stay-field">
+            <legend>Kde budete spát, nebo jak pojedete domů?</legend>
+            <label class="choice__opt"><input type="radio" name="stay" value="domu_sami"> Večer pojedeme domů po vlastní ose</label>
+            <label class="choice__opt"><input type="radio" name="stay" value="domu_odvoz"> Večer pojedeme domů a rádi využijeme váš odvoz</label>
+            <label class="choice__opt"><input type="radio" name="stay" value="penzion"> Chceme ubytování v penzionu</label>
+            <label class="choice__opt"><input type="radio" name="stay" value="stan"> Přespíme na místě ve vlastním stanu nebo karavanu</label>
+            <label class="choice__opt" id="stay-room" hidden><input type="radio" name="stay" value="pokoj"> Pokoj na statku (máme pro vás domluvený)</label>
+          </fieldset>
+
+          <div class="sub-fields" id="ride-fields" hidden>
+            <div class="field-row">
+              <div class="field">
+                <label for="rideTo">Kam vás odvézt?</label>
+                <input id="rideTo" name="rideTo" type="text" maxlength="100" placeholder="obec">
+              </div>
+              <div class="field">
+                <label for="ridePersons">Kolik osob pojede</label>
+                <input id="ridePersons" name="ridePersons" type="number" min="1" max="10" value="1" inputmode="numeric">
+              </div>
+            </div>
+          </div>
+
+          <fieldset class="field choice sub-fields" id="camp-fields" hidden>
+            <legend>Čím přijedete?</legend>
+            <label class="choice__opt"><input type="radio" name="camp" value="stan" checked> Stan</label>
+            <label class="choice__opt"><input type="radio" name="camp" value="karavan"> Karavan nebo obytné auto</label>
+          </fieldset>
+
           <fieldset class="field choice">
-            <legend>Chcete přespat na místě?</legend>
-            <label class="choice__opt"><input type="radio" name="lodging" value="ano"> Ano</label>
-            <label class="choice__opt"><input type="radio" name="lodging" value="ne" checked> Ne</label>
+            <legend>Přijedete autem?</legend>
+            <p class="hint">Parkování na statku je omezené, ať víme, kolik míst potřebujeme.</p>
+            <label class="choice__opt"><input type="radio" name="car" value="ano"> Ano</label>
+            <label class="choice__opt"><input type="radio" name="car" value="ne"> Ne</label>
           </fieldset>
         </div>
 
